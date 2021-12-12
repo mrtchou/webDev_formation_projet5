@@ -1,4 +1,3 @@
-
 sectionARemplir();
 
 // Récupération des articles de l'API
@@ -13,7 +12,9 @@ async function sectionARemplir() {
     let result = await getArticles ()
     .then(function (resultatAPI){
         const articles = resultatAPI;
-        console.table(articles);
+        
+        
+        //console.table(articles);
         for (let article in articles) {
 
 
