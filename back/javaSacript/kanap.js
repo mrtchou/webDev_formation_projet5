@@ -1,15 +1,15 @@
 sectionARemplir();
 
 // Récupération des articles de l'API
-async function getArticles() {
-    let articlesCatch = await fetch("http://localhost:3000/api/products")
-    return await articlesCatch.json();
+async function getProducts() {
+    let productsCatch = await fetch("http://localhost:3000/api/products")
+    return await productsCatch.json();
 }
 
 
 
 async function sectionARemplir() {
-    let result = await getArticles ()
+    let result = await getProducts ()
     .then(function (resultatAPI){
         const articles = resultatAPI;
         
