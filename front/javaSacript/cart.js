@@ -1,23 +1,28 @@
 
 
 //local storage
+//on transforme json en js qui est recu depuis local storage
 let produitLocalStorage = JSON.parse(localStorage.getItem("produit"));
 
 
-
+//puis on selectionne la balise dans le fichier html cart et cree une variable
 //console.table(produitLocalStorage);
 const cartItemsPanierVide = document.querySelector("#cart__items");
 
 
 
-// verification Si le panier est vide
-function getCart() {
+//on recupere donc le panier et selon si cest vide ou non on affiche le contenu ou message
+// verification Si le panier est vide, si qqchose recu depuis lecal storage
     if (produitLocalStorage === null || produitLocalStorage == 0) {
         const panierVide = `<p>Votre panier est vide</p>`;
         cartItemsPanierVide.innerHTML = panierVide;
         console.log(produitLocalStorage);
     } else {
 
+
+
+         //boucle FOR, pour distribuer objets depuis le array recu depuis local storage
+        //creation et selection des balises puis attribution leur des donnees
         for (let produit in produitLocalStorage) {
             // Insertion de l'élément "article"
             let productArticle = document.createElement("article");
@@ -25,6 +30,10 @@ function getCart() {
             productArticle.className = "cart__item";
             productArticle.setAttribute('data-id', produitLocalStorage[produit].idProduit);
             console.log(produitLocalStorage);
+
+
+
+
 
 
 
@@ -135,6 +144,14 @@ getCart();
 
 
 
+
+
+
+
+
+
+//avec cette function jai selectione tous les "itemQuantity", regarder
+// la longueur pour ensuite calculer la quantite de articles
 function getTotals() {
 
     // Récupération du total des quantités
@@ -142,6 +159,9 @@ function getTotals() {
     let itemQuantityLength = itemQuantity.length,
         totalQuantite = 0;
     console.log(itemQuantityLength);
+
+
+
 
 
 
@@ -157,6 +177,13 @@ function getTotals() {
     // Récupération du prix total
     totalPrice = 0;
 
+
+
+
+
+
+
+    
     for (let i = 0; i < itemQuantityLength; i++) {
         totalPrice += (itemQuantity[i].valueAsNumber * produitLocalStorage[i].prixProduit);
         console.log();
@@ -406,7 +433,6 @@ function postForm() {
          * products: [string] <-- array of product _id
          *
          */
-
         const order = {
             contact: {
                 firstName: inputName.value,
@@ -418,48 +444,27 @@ function postForm() {
             products: idProducts,
         }
 
-
-
-
-
-
-
-
         const options = {
-            method: 'POST'
+            method: 'POST',
+            body: JSON.stringify(order),
+            headers: {
+                'Accept': 'application/json',
+                "Content-Type": "application/json"
+            },
         };
 
-
-
-
-
-        fetch("http://localhost:3000/api/products/order/", options)
-
+        fetch("http://localhost:3000/api/products/order", options)
             .then((response) => response.json())
-
             .then((data) => {
-
-
-
-                //localStorage.clear();
+                console.log(data);
+                localStorage.clear();
                 localStorage.setItem("orderId", data.orderId);
-                console.log(localStorage)
-
-
-
-
 
                 document.location.href = "confirmation.html";
             })
-
-            .catch((error) => {
-                alert("Il y a un problème avec fetch : (fichier cart.js ligne 443" + error.message);
+            .catch((err) => {
+                alert("Problème avec fetch : " + err.message);
             });
-
-
-
     })
-
 }
-
 postForm();
