@@ -5,14 +5,23 @@
 let produitLocalStorage = JSON.parse(localStorage.getItem("produit"));
 
 
-//puis on selectionne la balise dans le fichier html cart et cree une variable
+//puis on selectionne la balise dans le fichier html cart
 //console.table(produitLocalStorage);
 const cartItemsPanierVide = document.querySelector("#cart__items");
 
 
 
+
+
+
+
+
+
+
+
 //on recupere donc le panier et selon si cest vide ou non on affiche le contenu ou message
 // verification Si le panier est vide, si qqchose recu depuis lecal storage
+function getCart() {
     if (produitLocalStorage === null || produitLocalStorage == 0) {
         const panierVide = `<p>Votre panier est vide</p>`;
         cartItemsPanierVide.innerHTML = panierVide;
@@ -21,7 +30,7 @@ const cartItemsPanierVide = document.querySelector("#cart__items");
 
 
 
-         //boucle FOR, pour distribuer objets depuis le array recu depuis local storage
+        //boucle FOR, pour distribuer objets depuis le array recu depuis local storage
         //creation et selection des balises puis attribution leur des donnees
         for (let produit in produitLocalStorage) {
             // Insertion de l'élément "article"
@@ -163,10 +172,7 @@ function getTotals() {
 
 
 
-
-
-
-    for (let i = 0; i < itemQuantityLength; ++i) {
+    for (let i = 0; i < itemQuantityLength; i++) {
         totalQuantite += itemQuantity[i].valueAsNumber;
     }
 
@@ -183,7 +189,7 @@ function getTotals() {
 
 
 
-    
+
     for (let i = 0; i < itemQuantityLength; i++) {
         totalPrice += (itemQuantity[i].valueAsNumber * produitLocalStorage[i].prixProduit);
         console.log();
@@ -194,6 +200,11 @@ function getTotals() {
     console.log(totalPrice);
 }
 getTotals();
+
+
+
+
+
 
 
 
@@ -226,6 +237,11 @@ function modificationQuantite() {
     }
 }
 modificationQuantite();
+
+
+
+
+
 
 
 
@@ -271,6 +287,10 @@ deleteProduct();
 
 
 
+
+
+
+
 //Instauration formulaire avec regex
 function getForm() {
     // selection balise de type class
@@ -283,6 +303,9 @@ function getForm() {
     let emailRegExp = new RegExp('^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$');
     let charRegExp = new RegExp("^[a-zA-Z ,.'-]+$");
     let addressRegExp = new RegExp("^[0-9]{1,3}(?:(?:[,. ]){1}[-a-zA-Zàâäéèêëïîôöùûüç]+)+");
+
+
+
 
     // Ecoute de la modification du prénom
     form.firstName.addEventListener('change', function () {
@@ -383,6 +406,10 @@ getForm();
 
 
 
+
+
+
+
 //Envoi des informations client au localstorage
 function postForm() {
     //selection de la balise "id order" sur le fichier cart.html
@@ -420,6 +447,8 @@ function postForm() {
 
 
 
+
+
         /**
          *
          * Expects request to contain:
@@ -444,6 +473,11 @@ function postForm() {
             products: idProducts,
         }
 
+
+
+
+
+
         const options = {
             method: 'POST',
             body: JSON.stringify(order),
@@ -452,6 +486,9 @@ function postForm() {
                 "Content-Type": "application/json"
             },
         };
+
+
+
 
         fetch("http://localhost:3000/api/products/order", options)
             .then((response) => response.json())
