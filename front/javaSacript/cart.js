@@ -488,20 +488,30 @@ function postForm() {
         };
 
 
+        async function orderFetch() {
+
+            await fetch("http://localhost:3000/api/products/order", options)
+                .then((response) => response.json())
+                .then((data) => {
+                    //console.log(data);
+                    //localStorage.clear();
+                    localStorage.setItem("orderId", data.orderId);
+
+                    document.location.href = "confirmation.html";
+                })
+                .catch((err) => {
+                    alert("Problème avec fetch : " + err.message);
+                });
+        }
+        orderFetch();
 
 
-        fetch("http://localhost:3000/api/products/order", options)
-            .then((response) => response.json())
-            .then((data) => {
-                console.log(data);
-                //localStorage.clear();
-                localStorage.setItem("orderId", data.orderId);
 
-                document.location.href = "confirmation.html";
-            })
-            .catch((err) => {
-                alert("Problème avec fetch : " + err.message);
-            });
+
+
+
+
+
     })
 }
 postForm();
