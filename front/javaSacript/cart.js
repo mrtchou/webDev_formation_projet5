@@ -494,7 +494,7 @@ function postForm() {
             .then((response) => response.json())
             .then((data) => {
                 console.log(data);
-                localStorage.clear();
+                //localStorage.clear();
                 localStorage.setItem("orderId", data.orderId);
 
                 document.location.href = "confirmation.html";
