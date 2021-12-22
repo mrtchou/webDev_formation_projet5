@@ -1,5 +1,4 @@
 
-
 //local storage
 //on transforme json en js qui est recu depuis local storage
 let produitLocalStorage = JSON.parse(localStorage.getItem("produit"));
@@ -514,4 +513,5 @@ function postForm() {
 
     })
 }
+localStorage.removeItem("orderId");
 postForm();
