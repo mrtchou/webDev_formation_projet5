@@ -339,7 +339,7 @@ function getForm() {
         let firstNameErrorMsg = inputFirstName.nextElementSibling;
 
         if (charRegExp.test(inputFirstName.value)) {
-            firstNameErrorMsg.in = '';
+            firstNameErrorMsg.innerHTML = '';
         } else {
             firstNameErrorMsg.innerHTML = 'Veuillez renseigner ce champ.';
         }
