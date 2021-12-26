@@ -13,5 +13,4 @@ function main() {
     localStorage.removeItem("produit");
 
 }
-
 main();
