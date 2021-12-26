@@ -4,6 +4,9 @@ let url = new URL(recuperationUrl);
 
 let idProductSelection = url.searchParams.get("id");
 
+
+
+
 //console.log(recuperationUrl);
 
 let article = "";
@@ -254,5 +257,7 @@ Pour consulter votre panier, cliquez sur OK`)) {
 
             }
         }
+
     });
+
 }
